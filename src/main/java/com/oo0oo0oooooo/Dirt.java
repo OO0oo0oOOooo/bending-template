@@ -8,6 +8,7 @@ import org.bukkit.event.Listener;
 import com.projectkorra.projectkorra.ProjectKorra;
 import com.projectkorra.projectkorra.ability.AddonAbility;
 import com.projectkorra.projectkorra.ability.EarthAbility;
+import com.projectkorra.projectkorra.configuration.ConfigManager;
 
 public class Dirt extends EarthAbility implements AddonAbility {
 
@@ -16,16 +17,28 @@ public class Dirt extends EarthAbility implements AddonAbility {
 
     public Dirt(Player player) {
         super(player);
-        // Yes
+
+        if (bPlayer.canBend(this)) {
+            return;
+        }
+
+        // setField();
+        // start();
     }
 
     @Override
     public void progress() {
+        if (bPlayer.canBend(this)) {
+            remove();
+            return;
+        }
+    }
 
+    public void setField() {
+        // COOLDOWN = ConfigManager.getConfig().getLong("ExtraAbilities.Jahko.Earth.EarthThrow.Cooldown");
     }
 
     public void onClick() {
-
     }
 
     @Override
@@ -57,6 +70,8 @@ public class Dirt extends EarthAbility implements AddonAbility {
     public void load() {
         _dirtListener = new DirtListener();
         ProjectKorra.plugin.getServer().getPluginManager().registerEvents(_dirtListener, ProjectKorra.plugin);
+
+        // ConfigManager.getConfig().addDefault("ExtraAbilities.Jahko.Earth.EarthThrow.Cooldown", 1000);
     }
 
     @Override

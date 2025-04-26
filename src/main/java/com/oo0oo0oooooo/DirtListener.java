@@ -17,12 +17,13 @@ public class DirtListener implements Listener {
         Player player = event.getPlayer();
         BendingPlayer bPlayer = BendingPlayer.getBendingPlayer(player);
 
-        if(bPlayer == null) return;
-        if(event.isCancelled()) return;
-        if(player.isSneaking()) return;
+        if (player == null) return;
+        if (bPlayer == null) return;
+        if (event.isCancelled()) return;
+        if (player.isSneaking()) return;
 
         if (bPlayer.getBoundAbilityName().equalsIgnoreCase("Dirt")) {
-            if(CoreAbility.getAbility(player, Dirt.class) == null) {
+            if (CoreAbility.getAbility(player, Dirt.class) == null) {
                 new Dirt(player);
             }
         }
@@ -30,15 +31,16 @@ public class DirtListener implements Listener {
 
     @EventHandler
     public void onClick(PlayerInteractEvent event) {
-        if(event.getAction() != Action.LEFT_CLICK_AIR 
-        && event.getAction() != Action.LEFT_CLICK_BLOCK) {
+        if (event.getAction() != Action.LEFT_CLICK_AIR 
+         && event.getAction() != Action.LEFT_CLICK_BLOCK) {
             return;
         }
 
         Player player = event.getPlayer();
         BendingPlayer bPlayer = BendingPlayer.getBendingPlayer(player);
         
-        if(bPlayer == null) return;
+        if (player == null) return;
+        if (bPlayer == null) return;
 
         Dirt dirt = CoreAbility.getAbility(player, Dirt.class);
         if (dirt != null) {
